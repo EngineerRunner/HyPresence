@@ -10,8 +10,9 @@ Change your Discord rich presence to the game you're playing on Hypixel!
 3. Create an application at the [Discord Developer Portal](https://discordapp.com/developers/applications/) called "Hypixel", set the icon to the Hypixel logo in /icons/, and add your application ID to `.env`  
 4. Head to 'Rich Presence' on the sidebar and upload all the game images from /icons/512x512/ as Rich Presence Assets
 5. Obtain a Hypixel API key, and add it to the .env
-> An API key can be obtained by going to https://developer.hypixel.net/dashboard/ and clicking "Create API Key". By doing so, users can generate an API key that comes with a default rate limit of 300 requests per 5 minutes, but will expire in 72 hours (3 days). To obtain a permanent key, you must click "Create App" and select "Personal API Key", which will grant you a key that provides the same default rate limit, but will not expire on its own.  
-6. Run the script and enjoy!
+> An API key can be obtained by going to https://developer.hypixel.net/dashboard/ and clicking "Create API Key". By doing so, users can generate an API key that comes with a default rate limit of 300 requests per 5 minutes, but will expire in 72 hours (3 days). To obtain a permanent key, you must click "Create App" and select "Personal API Key", which will grant you a key that provides the same default rate limit, but will not expire on its own.
+6. Optional: In the .env, enable linking your profile on Skycrypt and/or your Hypixel Forums profile (details are in the .env.example)
+7. Run the script and enjoy!
 
 ## Notes
 - Discord must be open for it to appear

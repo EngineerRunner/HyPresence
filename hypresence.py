@@ -12,7 +12,7 @@ username = os.getenv("USERNAME")
 use_skycrypt = os.getenv("SKYCRYPT")
 always_skycrypt = os.getenv("ALWAYS_SKYCRYPT")
 forums_profile = os.getenv("FORUMS_PROFILE")
-
+print(always_skycrypt==True)
 UUID = response = requests.get(f"https://api.mojang.com/users/profiles/minecraft/{username}").json()["id"] # uses the magic api to get your uuid
 
 headers = {"API-Key":API_KEY}
@@ -75,12 +75,14 @@ while True:  # the presence runs while the program runs
         else:
             icon = None
             print("No icon found")
+        buttons = []
         if not (forums_profile == None):
             buttons = [{"label":"Forums Profile", "url":f"https://hypixel.net/members/{forums_profile}/"}]
-        else:
-            buttons = []
-        if (use_skycrypt and userGame == "SKYBLOCK") or always_skycrypt:
+        
+        if ((use_skycrypt == True) and (userGame == "SKYBLOCK")) or always_skycrypt == True:
             buttons.append({"label": "Skycrypt Profile", "url": f"https://sky.shiiyu.moe/stats/{username}"})
+        if buttons == []:
+            buttons = None
         print(RPC.update(state=matchdetails,details=prettifiedGame,large_image=icon,buttons=buttons))
     else:
         print("User not online")

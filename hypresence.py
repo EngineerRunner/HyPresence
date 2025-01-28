@@ -49,6 +49,14 @@ icons = { # this is every game ever made for every platform ever
     "GINGERBREAD":"turbokartracing", # WHY is it called gingerbread???
 }
 
+small_icons = {
+    "BEDWARS_EIGHT_TWO_ARMED":"armed",
+    "BEDWARS_FOUR_FOUR_ARMED":"armed",
+
+}
+
+start_time = None
+
 while True:  # the presence runs while the program runs
     useractivity = requests.get(f"https://api.hypixel.net/v2/status?uuid={UUID}", headers=headers).json() # all of this is basically copy-pasted from lobsterbot
     print(useractivity)
@@ -58,8 +66,12 @@ while True:  # the presence runs while the program runs
         try:
 
             userMode = useractivity["session"]["mode"]
+            mode = useractivity["session"]["mode"]
             if userMode == "LOBBY":
                 prettifiedMode = "In Lobby"
+            elif userMode == "DISASTERS":
+                usermap = useractivity["session"]["map"]
+                prettifiedMode = f"Disasters"
             else:
                 prettifiedMode = gamenames["games"][userGame]["modeNames"][userMode]
             try:
@@ -69,6 +81,7 @@ while True:  # the presence runs while the program runs
                 matchdetails = prettifiedMode
         except:
             matchdetails = None
+            mode = None
         if userGame in icons:
             icon = icons[userGame]
             print(f"Icon: {icon}")
@@ -83,8 +96,17 @@ while True:  # the presence runs while the program runs
             buttons.append({"label": "Skycrypt Profile", "url": f"https://sky.shiiyu.moe/stats/{username}"})
         if buttons == []:
             buttons = None
-        print(RPC.update(state=matchdetails,details=prettifiedGame,large_image=icon,buttons=buttons))
+        if mode in small_icons:
+            small_icon = small_icons[mode]
+        else:
+            small_icon = None
+        if start_time == None:
+            start_time = round(time.time())
+            print(start_time)
+        print(RPC.update(state=matchdetails,details=prettifiedGame,large_image=icon,buttons=buttons,small_image=small_icon,start=start_time))
     else:
+        start_time = None
         print("User not online")
         RPC.clear()
+    oldactivity = useractivity
     time.sleep(15) # thanks to ratelimits, it only updates every 15 seconds
